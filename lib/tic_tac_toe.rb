@@ -78,13 +78,21 @@ class TicTacToe
 
         @current_player
     end
+
+    def turn
+        puts 'Please input turn'
+        user_input = gets
+        # puts user_input
+    
+    end 
  
 end
 
-# game = TicTacToe.new
-# game.move 0, 'X'
-# game.move 1, 'O'
-# game.move 2, 'X'
-# game.turn_count
-# game.move 3, 'O'
-# game.turn_count
+game = TicTacToe.new
+game.move 0, 'X'
+game.move 1, 'O'
+game.move 2, 'X'
+game.turn_count
+game.move 3, 'O'
+game.turn_count
+game.turn
