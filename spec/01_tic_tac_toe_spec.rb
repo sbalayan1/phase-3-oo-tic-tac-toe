@@ -130,6 +130,7 @@ describe './lib/tic_tac_toe.rb' do
 
         expect(game.turn_count).to eq(3)
 
+        game = TicTacToe.new
         board = ["O", " ", "O", " ", "X", " ", " ", " ", "X"]
         game.instance_variable_set(:@board, board)
 

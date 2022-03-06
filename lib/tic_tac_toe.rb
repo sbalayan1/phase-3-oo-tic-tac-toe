@@ -3,6 +3,8 @@ require 'pry'
 class TicTacToe 
     def initialize
         @board = Array.new(9).fill(" ")
+        @count = 0
+        @current_player = 'X'
     end 
 
     WIN_COMBINATIONS = [
@@ -29,12 +31,19 @@ class TicTacToe
     end 
 
     def move index, player
-        @board[index] = player
+        position_taken = position_taken? index
+        valid_move = valid_move? index
+
+        if position_taken == false && valid_move == true
+            @board[index] = player
+            @count += 1
+            @current_player = player == 'X' ? 'O' : 'X'
+        end
         # binding.pry
     end
 
     def position_taken? index
-        if @board[index] === 'X' || @board[index] === 'O'
+        if @board[index] == 'X' || @board[index] == 'O'
             true
         else
             false
@@ -42,11 +51,40 @@ class TicTacToe
     end
 
     def valid_move? index
-        if @board[index] === 'X' || @board[index] === 'O' || index > @board.length - 1 || index < 0
+        if @board[index] == 'X' || @board[index] == 'O' || index > @board.length - 1 || index < 0
             false
         else
             true
         end
     end 
+
+    def turn_count
+        if @count == 0
+            @board.each do |i|
+                if i=='X' || i=='O'
+                    @count +=1
+                end 
+            end
+        end
+
+        @count
+    end 
+
+    def current_player
+        currentCount = turn_count
+        currentCount.times do 
+            @current_player = @current_player == 'X' ? 'O' : 'X'
+        end
+
+        @current_player
+    end
+ 
 end
 
+# game = TicTacToe.new
+# game.move 0, 'X'
+# game.move 1, 'O'
+# game.move 2, 'X'
+# game.turn_count
+# game.move 3, 'O'
+# game.turn_count
