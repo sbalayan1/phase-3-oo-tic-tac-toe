@@ -28,4 +28,14 @@ class TicTacToe
         number = number.to_i - 1
     end 
 
-end 
+    def move index, player
+        @board[index] = player
+        # binding.pry
+    end
+
+    # create an instance of the TicTacToe class
+    game = TicTacToe.new
+    # call the instance method move on the game instance
+    game.move(0, 'X')
+end
+
