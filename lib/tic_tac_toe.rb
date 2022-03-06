@@ -33,9 +33,20 @@ class TicTacToe
         # binding.pry
     end
 
-    # create an instance of the TicTacToe class
-    game = TicTacToe.new
-    # call the instance method move on the game instance
-    game.move(0, 'X')
+    def position_taken? index
+        if @board[index] === 'X' || @board[index] === 'O'
+            true
+        else
+            false
+        end 
+    end
+
+    def valid_move? index
+        if @board[index] === 'X' || @board[index] === 'O' || index > @board.length - 1 || index < 0
+            false
+        else
+            true
+        end
+    end 
 end
 
