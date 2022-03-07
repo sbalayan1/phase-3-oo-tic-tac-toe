@@ -61,14 +61,40 @@ class TicTacToe
             turn
         end
     end 
- 
+
+    def won?
+        index_of_player_X = []
+        index_of_player_O = []
+
+        @board.each_with_index do |i, index|
+            if i == 'X'
+                index_of_player_X.push(index)
+            elsif i == 'O'
+                index_of_player_O.push(index)
+            end 
+        end 
+
+        WIN_COMBINATIONS.each do |combo|
+            
+        end 
+    end
+
+    def full?
+        if @board.count {|i| i == ' '} > 0 
+            puts 'false' 
+        else 
+            puts 'true'
+        end 
+    end 
 end
 
-# game = TicTacToe.new
-# game.move 0, 'X'
-# game.move 1, 'O'
-# game.move 2, 'X'
-# game.turn_count
-# game.move 3, 'O'
-# game.turn_count
-# game.turn
+game = TicTacToe.new
+game.move 0, 'X'
+game.move 1, 'O'
+game.move 2, 'X'
+game.turn_count
+game.move 3, 'O'
+game.turn_count
+game.turn
+game.full?
+game.won?
