@@ -3,8 +3,6 @@ require 'pry'
 class TicTacToe 
     def initialize
         @board = Array.new(9).fill(" ")
-        @count = 0
-        @current_player = 'X'
     end 
 
     WIN_COMBINATIONS = [
@@ -27,72 +25,50 @@ class TicTacToe
     end
 
     def input_to_index number
-        number = number.to_i - 1
+        number.to_i - 1
     end 
 
     def move index, player
-        position_taken = position_taken? index
-        valid_move = valid_move? index
-
-        if position_taken == false && valid_move == true
-            @board[index] = player
-            @count += 1
-            @current_player = player == 'X' ? 'O' : 'X'
-        end
-        # binding.pry
+        @board[index] = player
     end
 
     def position_taken? index
-        if @board[index] == 'X' || @board[index] == 'O'
-            true
-        else
-            false
-        end 
+        @board[index] != ' '
     end
 
     def valid_move? index
-        if @board[index] == 'X' || @board[index] == 'O' || index > @board.length - 1 || index < 0
-            false
-        else
-            true
-        end
+        !position_taken?(index) && index.between?(0,8)
     end 
 
     def turn_count
-        if @count == 0
-            @board.each do |i|
-                if i=='X' || i=='O'
-                    @count +=1
-                end 
-            end
-        end
-
-        @count
+        @board.count{|square| square != ' '}
     end 
 
     def current_player
-        currentCount = turn_count
-        currentCount.times do 
-            @current_player = @current_player == 'X' ? 'O' : 'X'
-        end
-
-        @current_player
+        turn_count.even? ? 'X' : 'O'
     end
 
     def turn
-        puts 'Please input turn'
-        user_input = gets
-        # puts user_input
-    
+        puts 'Please specify a position between 1-9.'
+        user_input = gets.strip
+        index = input_to_index user_input
+        current = current_player
+
+        if valid_move? index
+            move index, current
+            display_board
+        else
+            turn
+        end
     end 
  
 end
 
-game = TicTacToe.new
-game.move 0, 'X'
-game.move 1, 'O'
-game.move 2, 'X'
-game.turn_count
-game.move 3, 'O'
-game.turn_count
-game.turn
+# game = TicTacToe.new
+# game.move 0, 'X'
+# game.move 1, 'O'
+# game.move 2, 'X'
+# game.turn_count
+# game.move 3, 'O'
+# game.turn_count
+# game.turn
