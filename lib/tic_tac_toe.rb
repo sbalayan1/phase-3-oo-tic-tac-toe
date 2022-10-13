@@ -64,6 +64,40 @@ class TicTacToe
             turn
         end
     end
+
+    def won?
+        WIN_COMBINATIONS.any? do |combo|
+            if position_taken?(combo[0]) && board[combo[0]] == board[combo[1]] && board[combo[1]] == board[combo[2]]
+                return combo
+            end
+        end
+
+        false
+    end
+
+    def full?
+        return true unless board.include?(' ')
+    end
+
+    def draw?
+        full? && !won?
+    end
+
+    def over?
+        draw? || won?
+    end
+
+    def winner
+        if won?
+            turn_count % 2 == 0 ? "O" : "X"
+        end
+    end
+
+    def play
+        turn until over?
+        puts winner ? "Congratulations #{winner}!" : "Cat's Game!"
+    end
+
 end
 
 # board = TicTacToe.new()
